@@ -1,0 +1,29 @@
+---
+title: "new R markdown"
+author: "gcat332 Gust"
+date: "2023-12-02"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Hello World
+
+## This is R markdown
+
+Let's write some program.
+
+``` {r}
+print("Hello World")
+```
+```{r}
+head(mtcars)
+```
+
+Let's create a histogram chart.
+```{r}
+hist(mtcars$mpg)
+```
+
+
+

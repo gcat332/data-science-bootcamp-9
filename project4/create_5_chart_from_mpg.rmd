@@ -1,0 +1,68 @@
+---
+title: "Homework Data Visualization by R"
+author: "gcat332(gust)"
+date: "2023-12-02"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+## Explore data
+
+```{r message=FALSE, warning=FALSE }
+library(tidyverse)
+head(mpg)
+```
+\newpage
+## Create 5 charts from `mpg` data
+
+1. Histogram chart (one variable : continuous (number))
+```{r warning=FALSE}
+
+## year of manufacture by manufacturer, fill color by model
+ggplot(mpg,aes(displ,fill=model)) +
+  geom_histogram() +
+  facet_wrap(~manufacturer,ncol = 3)
+```
+\newpage
+2. Scatter chart (two variable : continuous (number) x continuous (number))
+```{r warning=FALSE}
+
+## correlation between engine displacement and number of cylinders group by manufacturer
+ggplot(mpg,aes(displ,cyl,color = manufacturer)) +
+  geom_point() +
+  geom_smooth() +
+  facet_wrap(~manufacturer,3)
+```
+
+\newpage
+3. Bar chart (one variable : discrete (factor))
+```{r warning=FALSE}
+
+## Quantity of model per each manufacturer
+ggplot(mpg,aes(manufacturer,fill = model)) +
+  geom_bar(potision = 'stack') 
+```
+
+\newpage
+4. Column chart (two variable : discrete (factor) x continuous (number))
+```{r warning=FALSE}
+
+## Quantity of model per each manufacturer but with summarise() method
+mpg %>%
+  group_by(manufacturer,model) %>%
+  summarise(n=n())%>%
+  ggplot(aes(manufacturer,n,fill=model)) +
+  geom_col(potision='stack')
+```
+
+\newpage
+5. Scatter chart with facet 2 factors
+```{r warning=FALSE}
+
+## find correlation of city miles and highway miles grouping by fuel type and type of transmission
+ggplot(mpg,aes(cty,hwy,color = fl)) +
+  geom_point() + 
+  geom_smooth() +
+  facet_grid(fl~trans)
+```

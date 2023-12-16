@@ -1,0 +1,5 @@
+"0","## find correlation of city miles and highway miles grouping by fuel type and type of transmission"
+"0","ggplot(mpg,aes(cty,hwy,color = fl)) +"
+"0","  geom_point() + "
+"0","  geom_smooth() +"
+"0","  facet_grid(fl~trans)"

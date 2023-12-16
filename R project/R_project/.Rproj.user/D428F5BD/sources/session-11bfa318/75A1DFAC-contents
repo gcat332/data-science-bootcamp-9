@@ -1,0 +1,21 @@
+library(tidyverse)
+
+df1 <- data.frame (qty  = c(1,2,3,4),
+                  price = c(10,20,30,40)
+)
+
+df2 <- data.frame (qty  = c(4,100,40,30,2,48,234,120,78),
+                   price = c(20,500,200,150,10,240,1190,600,390)
+)
+
+
+chart1 <- ggplot(df1,aes(y=qty,x=price)) +
+  geom_point()
+
+chart2 <- ggplot(df2,aes(y=qty,x=price)) +
+  geom_point()
+
+
+chart3 <- ggplot() +
+  geom_point(data =df1,aes(y=qty,x=price), color = "salmon") +
+  geom_point(data =df2,aes(y=qty,x=price), color = "lightgreen")

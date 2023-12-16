@@ -1,0 +1,28 @@
+library(writexl)
+library(readxl)
+library(tidyverse)
+
+skip <- read_excel('skip.xlsx',1)
+ignore <- read_excel('ignore.xlsx',1)
+cmdb <- read_excel('cmdb_all.xlsx',1)
+cmdb$row_index <- cmdb$row_index+1
+
+names(skip)[3] <- "log_code"
+names(ignore)[3] <- "log_code"
+
+cmdb <- left_join(cmdb,ignore,by='row_index')
+cmdb <- rows_update(cmdb,skip,by='row_index')
+
+
+cmdb %>%
+  filter(!is.na(action)) %>%
+  select(action,log_code,row_index)
+
+write_xlsx(cmdb,'cmdb_map.xlsx')
+
+
+
+ignore_moblie <- read_excel('ignore_moblie.xlsx',1)
+cmdb_moblie <- read_excel('cmdb_moblie.xlsx',1)
+cmdb_moblie <- left_join(cmdb_moblie,ignore_moblie,by='row_index')
+write_xlsx(cmdb_moblie,'cmdb_moblie_map.xlsx')
